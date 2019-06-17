@@ -1,5 +1,6 @@
 #include <QtTest>
 
+#include "../Plan-Describer/document.hpp"
 // add necessary includes here
 
 class testDocuments : public QObject

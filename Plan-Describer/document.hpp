@@ -9,6 +9,12 @@ class Document : public QObject
 public:
     explicit Document(QObject *parent = nullptr);
 
+    int startYear;
+    QList<QString> tableTargets;
+    QList<QString> tableMethodsOfRealization;
+    QString therapistName;
+    QString childName;
+
 signals:
 
 public slots:
