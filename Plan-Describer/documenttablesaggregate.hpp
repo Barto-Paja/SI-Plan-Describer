@@ -4,7 +4,11 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QVariant>
 #include <QDir>
+
+#include <QSqlError>
+#include <QDebug>
 
 struct targetVariant
 {
@@ -18,6 +22,9 @@ class DocumentTablesAggregate : public QObject
 public:
     explicit DocumentTablesAggregate(QString db_file_name, QObject *parent = nullptr);
 
+    bool loadData();
+    QList<targetVariant> variants() const;
+
 signals:
 
 public slots:
@@ -25,8 +32,9 @@ public slots:
 private:
 
     bool openDataBase();
+    bool prepareValues();
 
-    QSqlDatabase _db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase _db;
     QDir _databasePath = QDir::currentPath();
 
     QList<targetVariant> _variants;
