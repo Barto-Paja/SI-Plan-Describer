@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,14 +26,17 @@ CONFIG += c++11
 
 SOURCES += \
         document.cpp \
+        documentplandialog.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
         document.hpp \
+        documentplandialog.hpp \
         mainwindow.h
 
 FORMS += \
+        documentplandialog.ui \
         mainwindow.ui
 
 # Default rules for deployment.
