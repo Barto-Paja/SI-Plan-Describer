@@ -220,10 +220,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QStackedWidget" name="stackedWidget_targetContentView">
-     <widget class="QWidget" name="page"/>
-     <widget class="QWidget" name="page_2"/>
-    </widget>
+    <widget class="QStackedWidget" name="stackedWidget_targetContentView"/>
    </item>
    <item>
     <spacer name="verticalSpacer_4">

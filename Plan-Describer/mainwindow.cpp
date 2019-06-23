@@ -16,6 +16,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_newDocument_clicked()
 {
     DocumentPlanDialog dialog;
+    dialog.loadData();
     dialog.setModal(true);
     dialog.exec();
 }

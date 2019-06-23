@@ -2,6 +2,9 @@
 #define DOCUMENTPLANDIALOG_HPP
 
 #include <QDialog>
+#include <QVBoxLayout>
+#include <QCheckBox>
+#include "documenttablesaggregate.hpp"
 
 namespace Ui {
 class DocumentPlanDialog;
@@ -17,8 +20,13 @@ public:
 
     bool loadData();
 
+private slots:
+    void on_comboBox_targetType_currentIndexChanged(int index);
+
 private:
     Ui::DocumentPlanDialog *ui;
+
+    QList<targetVariant> _variants;
 };
 
 #endif // DOCUMENTPLANDIALOG_HPP
