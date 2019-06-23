@@ -28,6 +28,8 @@ private:
 
     QSqlDatabase _db = QSqlDatabase::addDatabase("QSQLITE");
     QDir _databasePath = QDir::currentPath();
+
+    QList<targetVariant> _variants;
 };
 
 #endif // DOCUMENTTABLESAGGREGATE_HPP

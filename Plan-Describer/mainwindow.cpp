@@ -12,3 +12,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_pushButton_newDocument_clicked()
+{
+    DocumentPlanDialog dialog;
+    dialog.setModal(true);
+    dialog.exec();
+}
