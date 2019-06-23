@@ -15,6 +15,8 @@ public:
     explicit DocumentPlanDialog(QWidget *parent = nullptr);
     ~DocumentPlanDialog();
 
+    bool loadData();
+
 private:
     Ui::DocumentPlanDialog *ui;
 };

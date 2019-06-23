@@ -12,3 +12,8 @@ DocumentPlanDialog::~DocumentPlanDialog()
 {
     delete ui;
 }
+
+bool DocumentPlanDialog::loadData()
+{
+
+}

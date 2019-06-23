@@ -27,12 +27,14 @@ CONFIG += c++11
 SOURCES += \
         document.cpp \
         documentplandialog.cpp \
+        documenttablesaggregate.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
         document.hpp \
         documentplandialog.hpp \
+        documenttablesaggregate.hpp \
         mainwindow.h
 
 FORMS += \
