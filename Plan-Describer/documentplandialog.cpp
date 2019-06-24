@@ -49,3 +49,8 @@ void DocumentPlanDialog::on_comboBox_targetType_currentIndexChanged(int index)
 {
     ui->stackedWidget_targetContentView->setCurrentIndex(index);
 }
+
+void DocumentPlanDialog::on_pushButton_generateFile_clicked()
+{
+
+}

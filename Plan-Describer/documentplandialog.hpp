@@ -23,6 +23,8 @@ public:
 private slots:
     void on_comboBox_targetType_currentIndexChanged(int index);
 
+    void on_pushButton_generateFile_clicked();
+
 private:
     Ui::DocumentPlanDialog *ui;
 

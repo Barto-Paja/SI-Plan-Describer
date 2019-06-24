@@ -26,14 +26,18 @@ CONFIG += c++11
 
 SOURCES += \
         document.cpp \
+        documentparser.cpp \
         documentplandialog.cpp \
+        documentprinter.cpp \
         documenttablesaggregate.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
         document.hpp \
+        documentparser.hpp \
         documentplandialog.hpp \
+        documentprinter.hpp \
         documenttablesaggregate.hpp \
         mainwindow.h
 
