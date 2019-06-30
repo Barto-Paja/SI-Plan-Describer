@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QCheckBox>
 #include "documenttablesaggregate.hpp"
+#include "documentprinter.hpp"
 
 namespace Ui {
 class DocumentPlanDialog;

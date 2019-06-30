@@ -52,5 +52,12 @@ void DocumentPlanDialog::on_comboBox_targetType_currentIndexChanged(int index)
 
 void DocumentPlanDialog::on_pushButton_generateFile_clicked()
 {
+    documentTemplate theme;
+    theme.title = QString("%1 %2%3").arg(ui->label_headerTitle->text()).arg(ui->dateEdit_dateStart->date().year()).arg(ui->label_dateEnd->text());
+    theme.childName = ui->lineEdit_studentName->text();
+    theme.therapistName = ui->lineEdit_therapistName->text();
+    theme.coreTargetText = ui->label_coreTargetTheme->text();
+    DocumentPrinter printer;
+    printer.printFile(ui->lineEdit_studentName->text(),theme);
 
 }

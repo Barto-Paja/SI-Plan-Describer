@@ -8,6 +8,10 @@
 
 struct documentTemplate
 {
+    QString title;
+    QString childName;
+    QString therapistName;
+    QString coreTargetText;
 
 };
 
@@ -20,9 +24,15 @@ class DocumentPrinter : public QObject
 public:
     explicit DocumentPrinter(QObject *parent = nullptr);
 
+    bool printFile(QString file_name, documentTemplate &file_theme);
+
 signals:
 
 public slots:
+
+private:
+
+
 };
 
 #endif // DOCUMENTPRINTER_HPP
