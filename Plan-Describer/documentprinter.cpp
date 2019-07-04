@@ -1,46 +1,17 @@
 #include "documentprinter.hpp"
 
-#include <QPainter>
-#include <QDebug>
-#include <QPageSize>
-#include <QAbstractTextDocumentLayout>
-#include <QTextTable>
-
 DocumentPrinter::DocumentPrinter(QObject *parent) : QObject(parent)
 {
-    _printer.setResolution(QPrinter::HighResolution);
 
-    QPageSize pageSize(QPageSize::A4);
-    _printer.setPageSize(pageSize);
-
-    QPagedPaintDevice::Margins margins;
-    margins.top = 11.5;
-    margins.left = 12.6;
-    margins.right = 11.5;
-    margins.bottom = 11.8;
-    _printer.setMargins (margins);
-
-    //_printer.setFullPage(true);
-    _printer.setOutputFileName("output.pdf");
-    _printer.setOutputFormat(QPrinter::PdfFormat);
 }
 
 bool DocumentPrinter::printFile(QString file_name, documentTemplate &file_theme)
 {
-    QTextDocument docP;
-    docP.setHtml(file_theme.coreTargetText);
-    qDebug() << docP.toRawText();
-
     QTextDocument doc;
-//        doc.setDefaultStyleSheet("p {"
-//                                 "      font-family: Calibri, \"Times New Roma\", sans-serif;"
-//                                 "      font-size: 5pt; "
-//                                 "   } ");
 
 
         QFont font;
         font.setPointSize(5);
-        //font.setPixelSize(6);
         font.setStyleHint(QFont::AnyStyle,QFont::PreferDevice);
         font.setFamily("Roboto");
         font.setLetterSpacing(QFont::PercentageSpacing,100);
@@ -56,18 +27,7 @@ bool DocumentPrinter::printFile(QString file_name, documentTemplate &file_theme)
         block_format.setAlignment(Qt::AlignLeft);
         cursor.insertBlock(block_format);
 
-
-        QTextCharFormat char_format;
-        char_format.setFontPointSize(4.5);
-
-//        QFont font_2;
-//        font_2.setPointSize(4);
-//        font_2.setFamily("Calibri");
-//        //cursor.setCharFormat(char_format);
-//        cursor.insertHtml("<br><br>");
-//        //cursor.insertText("Inny text",char_format);
-//        cursor.charFormat().setFont(font_2);
-        cursor.insertHtml(QString("<p><b>Imię i nazwisko:</b> %1<br>").arg(file_theme.childName));
+        cursor.insertHtml(QString("<p><b>Imię i nazwisko:</b> %1<br>").arg(file_theme.studentName));
         cursor.insertHtml(QString("<p><b>Terapeuta prowadzący:</b> %1<br>").arg(file_theme.therapistName));
         cursor.insertHtml("<br>");
         cursor.insertHtml(QString("<p><b>Cel główny:</b> "
@@ -98,6 +58,32 @@ bool DocumentPrinter::printFile(QString file_name, documentTemplate &file_theme)
 
         table->cellAt(0, 1).firstCursorPosition().insertHtml("Metody i środki realizacji");
 
-    doc.print(&_printer);
+        doc.print(&_printer);
+}
+
+void DocumentPrinter::loadPrinterConfiguration()
+{
+    _printer.setResolution(QPrinter::HighResolution);
+
+    _printer.setPageSize(_pageSize);
+
+
+    _printer.setMargins(_margins);
+
+    _printer.setOutputFileName("output.pdf");
+    _printer.setOutputFormat(QPrinter::PdfFormat);
+}
+
+void DocumentPrinter::prepareMargins()
+{
+    _margins.top = 11.5;
+    _margins.left = 12.6;
+    _margins.right = 11.5;
+    _margins.bottom = 11.8;
+}
+
+QTextTable DocumentPrinter::prepareTable(QTextCursor *cursor)
+{
+    QTextTable *table = cursor->insertTable(9,9);
 }
 

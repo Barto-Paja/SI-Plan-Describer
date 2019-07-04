@@ -6,13 +6,25 @@
 #include <QTextFormat>
 #include <QTextDocument>
 
+#include <QPainter>
+#include <QDebug>
+#include <QPageSize>
+#include <QAbstractTextDocumentLayout>
+#include <QTextTable>
+
+struct table
+{
+    QString columnTarget;
+    QList<QString> columnMethods;
+};
+
 struct documentTemplate
 {
     QString title;
-    QString childName;
+    QString studentName;
     QString therapistName;
-    QString coreTargetText;
 
+    table table;
 };
 
 class DocumentPrinter : public QObject
@@ -20,6 +32,12 @@ class DocumentPrinter : public QObject
     Q_OBJECT
 
     QPrinter _printer;
+    QPagedPaintDevice::Margins _margins;
+    QPageSize _pageSize = QPageSize(QPageSize::A4);
+
+    QFont _font;
+    QTextTableFormat _tableFormat;
+
 
 public:
     explicit DocumentPrinter(QObject *parent = nullptr);
@@ -31,6 +49,13 @@ signals:
 public slots:
 
 private:
+
+    void loadPrinterConfiguration();
+    void prepareMargins();
+    void prepareFont();
+    void preapareTableFormat();
+
+    QTextTable prepareTable(QTextCursor *cursor);
 
 
 };
