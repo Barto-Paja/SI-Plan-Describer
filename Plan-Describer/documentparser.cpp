@@ -10,7 +10,7 @@ QByteArray DocumentParser::generateXML(documentCoreSave &documentData)
     QByteArray ba;
     QXmlStreamWriter writer(&ba);
 
-    writer.setAutoFormatting(false);
+    writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("DOCUMENT_EXPORT");
 
@@ -19,7 +19,7 @@ QByteArray DocumentParser::generateXML(documentCoreSave &documentData)
                 writer.writeCharacters(QString::number(documentData.dateStart.year()));
             writer.writeEndElement();
             writer.writeStartElement("DATA_ZAKONCZENIA");
-                writer.writeCharacters(QString::number(documentData.dateEnd.year()));
+                writer.writeCharacters(QString::number(documentData.dateStart.year()+1));
             writer.writeEndElement();
         writer.writeEndElement();
 

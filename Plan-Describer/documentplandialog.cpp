@@ -69,6 +69,13 @@ void DocumentPlanDialog::on_pushButton_generateFile_clicked()
     printer.setDocument(document);
     printer.printFile(ui->lineEdit_studentName->text());
 
+    DocumentParser parser;
+    documentCoreSave documentSave;
+    prepareDocumentCoreSave(documentSave);
+    QFile file(QString("%1.xml").arg(ui->lineEdit_studentName->text()));
+    file.open(QIODevice::WriteOnly);
+    file.write(parser.generateXML(documentSave));
+    file.close();
 }
 
 void DocumentPlanDialog::prepareDocumentTemplate(documentTemplate &document)
@@ -103,6 +110,36 @@ void DocumentPlanDialog::prepareDocumentTemplate(documentTemplate &document)
         }
     }
 
+}
+
+void DocumentPlanDialog::prepareDocumentCoreSave(documentCoreSave &document)
+{
+    document.dateStart = ui->dateEdit_dateStart->date();
+    document.studentName = ui->lineEdit_studentName->text();
+    document.therapistName = ui->lineEdit_therapistName->text();
+
+    for(int i = 0; i < ui->stackedWidget_targetContentView->count(); ++i)
+    {
+        QLayout * layout = ui->stackedWidget_targetContentView->widget(i)->layout();
+        QString columnTargetCell = ui->stackedWidget_targetContentView->widget(i)->objectName();
+        int count = 0;
+        if(layout)
+        {
+            for (int j = 0; j < layout->count(); ++j)
+            {
+                QCheckBox * checkbox = qobject_cast<QCheckBox*>(layout->itemAt(j)->widget());
+                if(checkbox->isChecked())
+                {
+                    count++;
+                }
+            }
+        }
+
+        if(count>0)
+        {
+            document.targets.append(columnTargetCell);
+        }
+    }
 }
 
 void DocumentPlanDialog::on_dateEdit_dateStart_userDateChanged(const QDate &date)
