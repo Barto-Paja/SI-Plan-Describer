@@ -22,14 +22,14 @@ public:
     bool loadData();
 
 private slots:
-    void on_comboBox_targetType_currentIndexChanged(int index);
 
+    void on_comboBox_targetType_currentIndexChanged(int index);
     void on_pushButton_generateFile_clicked();
+    void on_dateEdit_dateStart_userDateChanged(const QDate &date);
 
 private:
     Ui::DocumentPlanDialog *ui;
-
-    QList<targetVariant> _variants;
+    void prepareDocumentTemplate(documentTemplate &document);
 };
 
 #endif // DOCUMENTPLANDIALOG_HPP

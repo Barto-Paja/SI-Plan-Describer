@@ -1,4 +1,5 @@
 #include "documentprinter.hpp"
+#include <QTextDocument>
 
 DocumentPrinter::DocumentPrinter(QObject *parent) : QObject(parent)
 {
@@ -31,10 +32,51 @@ bool DocumentPrinter::printFile(QString file_name)
                               " Centralnego Układu Nerwowego poprzez dostarczanie właściwych "
                               "bodźców sensorycznych. </p><br><br>"));
 
-    QTextTable *table = cursor.insertTable(_document.table.count(), 2);
+    QTextTable *table = cursor.insertTable(_document.table.count()+1, 2);
     table->setFormat(_tableFormat);
 
-    prepareTable(table);
+    // ========================
+
+    // Header
+
+    table->cellAt(0, 0).firstCursorPosition().insertHtml("<b>Cel</b>");
+    table->cellAt(0, 1).firstCursorPosition().insertHtml("<b>Metody i środki realizacji</b>");
+
+    // Content
+
+    for (int i = 0;i<_document.table.count();++i)
+    {
+        table->cellAt(i+1,0).firstCursorPosition().insertHtml(_document.table.at(i).columnTarget);
+
+        QString content;
+
+        for(int j = 0; j < _document.table.at(i).columnMethods.count(); ++j)
+        {
+            if(j>0)
+            {
+               content.append(QString("<br>- %1").arg(_document.table.at(i).columnMethods.at(j)));
+            }
+            else
+            {
+               content.append(QString("- %1").arg(_document.table.at(i).columnMethods.at(j)));
+            }
+        }
+
+        table->cellAt(i+1,1).firstCursorPosition().insertHtml(content);
+    }
+
+    // =========================
+
+
+    QTextBlockFormat block_format_;
+    block_format_.setAlignment(Qt::AlignRight);
+
+    cursor.movePosition(QTextCursor::End);
+
+    cursor.insertBlock(block_format_);
+    cursor.insertHtml("<br>");
+    cursor.insertHtml(QString("<p><i>%1</i></p>").arg(_document.therapistSignature));
+
     _printer.setOutputFileName(QString("%1.pdf").arg(file_name));
     doc.print(&_printer);
 
@@ -58,7 +100,6 @@ void DocumentPrinter::loadPrinterConfiguration()
 
     _printer.setOutputFileName("output.pdf");
     _printer.setOutputFormat(QPrinter::PdfFormat);   
-        //table = cursor->insertTable(_document.table.count()+1,2);
 }
 
 void DocumentPrinter::prepareMargins()
@@ -88,18 +129,18 @@ void DocumentPrinter::preapareTableFormat()
     _tableFormat.setHeaderRowCount(1);
 }
 
-void DocumentPrinter::prepareTable(QTextTable *table)
+void DocumentPrinter::prepareTable(QTextTable &table)
 {
     // Header
 
-    table->cellAt(0, 0).firstCursorPosition().insertHtml("<b>Cel</b>");
-    table->cellAt(0, 1).firstCursorPosition().insertHtml("<b>Metody i środki realizacji</b>");
+    table.cellAt(0, 0).firstCursorPosition().insertHtml("<b>Cel</b>");
+    table.cellAt(0, 1).firstCursorPosition().insertHtml("<b>Metody i środki realizacji</b>");
 
     // Content
 
     for (int i = 0;i<_document.table.count();++i)
     {
-        table->cellAt(i+1,0).firstCursorPosition().insertHtml(_document.table.at(i).columnTarget);
+        table.cellAt(i+1,0).firstCursorPosition().insertHtml(_document.table.at(i).columnTarget);
 
         QString content;
 
@@ -115,7 +156,7 @@ void DocumentPrinter::prepareTable(QTextTable *table)
             }
         }
 
-        table->cellAt(i+1,1).firstCursorPosition().insertHtml(content);
+        table.cellAt(i+1,1).firstCursorPosition().insertHtml(content);
     }
 }
 

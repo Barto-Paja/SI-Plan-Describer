@@ -23,6 +23,7 @@ struct documentTemplate
     QString title;
     QString studentName;
     QString therapistName;
+    QString therapistSignature;
 
     QList<table> table;
 };
@@ -59,7 +60,7 @@ private:
     void prepareFont();
     void preapareTableFormat();
 
-    void prepareTable(QTextTable *table);
+    void prepareTable(QTextTable &table);
 };
 
 #endif // DOCUMENTPRINTER_HPP
