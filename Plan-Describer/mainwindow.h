@@ -19,6 +19,8 @@ public:
 private slots:
     void on_pushButton_newDocument_clicked();
 
+    void on_pushButton_exit_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
