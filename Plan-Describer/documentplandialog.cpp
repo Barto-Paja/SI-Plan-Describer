@@ -8,6 +8,7 @@ DocumentPlanDialog::DocumentPlanDialog(QWidget *parent) :
     ui(new Ui::DocumentPlanDialog)
 {
     ui->setupUi(this);
+    ui->dateEdit_dateStart->setDate(QDate::currentDate());
 }
 
 DocumentPlanDialog::~DocumentPlanDialog()

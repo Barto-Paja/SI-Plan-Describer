@@ -16,7 +16,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_newDocument_clicked()
 {
     DocumentPlanDialog dialog;
+    dialog.setWindowTitle("Utwórz plan zajęć integrcji sensorycznej");
     dialog.loadData();
     dialog.setModal(true);
     dialog.exec();
+}
+
+void MainWindow::on_pushButton_exit_clicked()
+{
+    exit(0);
 }
