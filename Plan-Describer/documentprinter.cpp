@@ -74,7 +74,7 @@ bool DocumentPrinter::printFile(QString file_name)
     cursor.movePosition(QTextCursor::End);
 
     cursor.insertBlock(block_format_);
-    cursor.insertHtml("<br>");
+    cursor.insertHtml("<br><br>");
     cursor.insertHtml(QString("<p><i>%1</i></p>").arg(_document.therapistSignature));
 
     _printer.setOutputFileName(QString("%1.pdf").arg(file_name));
