@@ -3,6 +3,19 @@
 
 #include <QObject>
 
+#include <QDate>
+
+struct documentCoreSave
+{
+    QDate dateStart;
+    QDate dateEnd;
+
+    QString studentName;
+    QString therapistName;
+
+    QList<QString> targets;
+};
+
 class DocumentParser : public QObject
 {
     Q_OBJECT
