@@ -6,6 +6,7 @@
 #include <QDate>
 #include <QXmlStreamWriter>
 #include <QByteArray>
+#include <QFile>
 
 struct documentCoreSave
 {
@@ -24,6 +25,7 @@ public:
     explicit DocumentParser(QObject *parent = nullptr);
 
     QByteArray generateXML(documentCoreSave &documentData);
+    bool readXML(QFile &file, documentCoreSave &documentData);
 
 signals:
 

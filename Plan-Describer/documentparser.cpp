@@ -46,3 +46,14 @@ QByteArray DocumentParser::generateXML(documentCoreSave &documentData)
 
     return ba;
 }
+
+bool DocumentParser::readXML(QFile &file, documentCoreSave &documentData)
+{
+    QXmlStreamReader reader(&file);
+
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        return false;
+    }
+
+}

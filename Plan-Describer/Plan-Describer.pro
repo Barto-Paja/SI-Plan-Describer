@@ -29,6 +29,7 @@ SOURCES += \
         documentparser.cpp \
         documentplandialog.cpp \
         documentprinter.cpp \
+        documentsummaryplandialog.cpp \
         documenttablesaggregate.cpp \
         main.cpp \
         mainwindow.cpp
@@ -38,11 +39,13 @@ HEADERS += \
         documentparser.hpp \
         documentplandialog.hpp \
         documentprinter.hpp \
+        documentsummaryplandialog.h \
         documenttablesaggregate.hpp \
         mainwindow.h
 
 FORMS += \
         documentplandialog.ui \
+        documentsummaryplandialog.ui \
         mainwindow.ui
 
 # Default rules for deployment.
