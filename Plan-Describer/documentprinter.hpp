@@ -24,7 +24,7 @@ struct documentTemplate
     QString studentName;
     QString therapistName;
 
-    table table;
+    QList<table> table;
 };
 
 class DocumentPrinter : public QObject
@@ -42,7 +42,9 @@ class DocumentPrinter : public QObject
 public:
     explicit DocumentPrinter(QObject *parent = nullptr);
 
-    bool printFile(QString file_name, documentTemplate &file_theme);
+    bool printFile(QString file_name);
+
+    void setDocument(const documentTemplate &document);
 
 signals:
 
@@ -50,14 +52,14 @@ public slots:
 
 private:
 
+    documentTemplate _document;
+
     void loadPrinterConfiguration();
     void prepareMargins();
     void prepareFont();
     void preapareTableFormat();
 
-    QTextTable prepareTable(QTextCursor *cursor);
-
-
+    void prepareTable(QTextTable *table);
 };
 
 #endif // DOCUMENTPRINTER_HPP
