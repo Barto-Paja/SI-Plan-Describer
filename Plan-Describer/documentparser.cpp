@@ -97,5 +97,4 @@ bool DocumentParser::readXML(QFile &file, documentCoreSave &documentData)
     file.close();
 
     return true;
-
 }
