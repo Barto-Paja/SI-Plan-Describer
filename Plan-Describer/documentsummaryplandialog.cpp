@@ -32,11 +32,42 @@ void DocumentSummaryPlanDialog::on_pushButton_load_clicked()
 
     if(parser.readXML(file,document))
     {
-        ui->label_title->setText(QString("Plan ewaluacyjny za rok szkolny %1/%2").arg(document.dateStart.year()).arg(document.dateStart.year()+1));
-        ui->label_studentName->setText(QString("Imię i nazwisko: %1").arg(document.studentName));
-        ui->label_therapistName->setText(QString("Terapeuta prowadzący: %1").arg(document.therapistName));
+        ui->label_title->setText(QString("<b>Ewaluacja planu zajęć integracji sensorycznej za rok szkolny %1/%2<b>").arg(document.dateStart.year()).arg(document.dateStart.year()+1));
+        ui->label_studentName->setText(QString("<b>Imię i nazwisko:</b> %1").arg(document.studentName));
+        ui->label_therapistName->setText(QString("<b>Terapeuta prowadzący:</b> %1").arg(document.therapistName));
+
+        if(ui->scrollAreaWidgetContents->layout())
+        {
+            ui->scrollAreaWidgetContents->setLayout(nullptr);
+        }
 
         QVBoxLayout *vLayout = new QVBoxLayout;
+
+        QHBoxLayout *layout_header = new QHBoxLayout;
+        layout_header->setSpacing(3);
+
+        QLabel *label_header = new QLabel;
+        label_header->setAlignment(Qt::AlignCenter);
+        label_header->setText("<h2><b>Cel</b></h2>");
+        label_header->setMinimumWidth(300);
+//        label_header->setStyleSheet("QLabel { border: 1px solid black }");
+        layout_header->addWidget(label_header);
+
+        label_header = new QLabel;
+        label_header->setAlignment(Qt::AlignCenter);
+        label_header->setText("<h2><b>Zrealizowane umiejętności</b></h2>");
+        label_header->setMinimumWidth(300);
+//        label_header->setStyleSheet("QLabel { border: 1px solid black }");
+        layout_header->addWidget(label_header);
+
+        label_header = new QLabel;
+        label_header->setAlignment(Qt::AlignCenter);
+        label_header->setText("<h2><b>Uwagi</b></h2>");
+        label_header->setMinimumWidth(300);
+//        label_header->setStyleSheet("QLabel { border: 1px solid black }");
+        layout_header->addWidget(label_header);
+
+        vLayout->addItem(layout_header);
 
         for(int i = 0; i < document.targets.count(); ++i)
         {
@@ -44,16 +75,19 @@ void DocumentSummaryPlanDialog::on_pushButton_load_clicked()
             layout->setSpacing(3);
             layout->setObjectName(QString("Target_%1").arg(i));
             QLabel *label = new QLabel;
+            label->setAlignment(Qt::AlignCenter);
             label->setText(document.targets[i]);
+            label->setMinimumWidth(300);
             layout->addWidget(label);
-            label->setMinimumSize(200,200);
             layout->addWidget(new QPlainTextEdit());
             layout->addWidget(new QPlainTextEdit());
             vLayout->addItem(layout);
+
             label->setStyleSheet("QLabel { border: 1px solid black }");
         }
 
-        ui->scrollArea->setLayout(vLayout);
+        ui->scrollAreaWidgetContents->setLayout(vLayout);
+       // ui->scrollArea->setLayout(vLayout);
         update();
     }
 
