@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        databaseeditordialog.cpp \
         document.cpp \
         documentparser.cpp \
         documentplandialog.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
+        databaseeditordialog.h \
         document.hpp \
         documentparser.hpp \
         documentplandialog.hpp \
@@ -44,6 +46,7 @@ HEADERS += \
         mainwindow.h
 
 FORMS += \
+        databaseeditordialog.ui \
         documentplandialog.ui \
         documentsummaryplandialog.ui \
         mainwindow.ui
