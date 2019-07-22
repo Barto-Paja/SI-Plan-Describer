@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "documentplandialog.hpp"
+#include "documentsummaryplandialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +21,8 @@ private slots:
     void on_pushButton_newDocument_clicked();
 
     void on_pushButton_exit_clicked();
+
+    void on_pushButton_newSummaryPlan_clicked();
 
 private:
     Ui::MainWindow *ui;
