@@ -49,7 +49,7 @@ bool DocumentTablesAggregate::prepareValues()
             _variants.append(targetVariant());
             _variants.last().name = query->value("name").toString();
             _variants.last().isUsing = query->value("is_used").toBool();
-
+            _variants.last().id = query->value("id").toInt();
         }
     }
     else

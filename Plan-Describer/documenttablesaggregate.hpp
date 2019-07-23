@@ -12,6 +12,7 @@
 
 struct targetVariant
 {
+    int id;
     QString name;
     bool isUsing;
     QList<QString> variants;

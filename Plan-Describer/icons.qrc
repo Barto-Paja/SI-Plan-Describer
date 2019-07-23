@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>icons/outbox.png</file>
+        <file>icons/rubbish-bin.png</file>
+        <file>icons/add.png</file>
     </qresource>
 </RCC>

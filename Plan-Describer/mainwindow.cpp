@@ -33,3 +33,11 @@ void MainWindow::on_pushButton_newSummaryPlan_clicked()
     dialog.setModal(true);
     dialog.exec();
 }
+
+
+void MainWindow::on_action_manageDictionaries_triggered()
+{
+    DataBaseEditorDialog dialog;
+    dialog.setModal(true);
+    dialog.exec();
+}
