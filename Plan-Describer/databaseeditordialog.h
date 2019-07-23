@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "documenttablesaggregate.hpp"
+
 namespace Ui {
 class DataBaseEditorDialog;
 }
@@ -17,6 +19,11 @@ public:
 
 private:
     Ui::DataBaseEditorDialog *ui;
+
+    bool initDataBase();
+
+    DocumentTablesAggregate *_dbProxy = nullptr;
+
 };
 
 #endif // DATABASEEDITORDIALOG_H

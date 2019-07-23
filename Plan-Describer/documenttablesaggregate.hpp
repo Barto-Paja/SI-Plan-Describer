@@ -13,6 +13,7 @@
 struct targetVariant
 {
     QString name;
+    bool isUsing;
     QList<QString> variants;
 };
 
@@ -21,7 +22,7 @@ class DocumentTablesAggregate : public QObject
     Q_OBJECT
 public:
     explicit DocumentTablesAggregate(QString db_file_name, QObject *parent = nullptr);
-
+    ~DocumentTablesAggregate();
     bool loadData();
     QList<targetVariant> variants() const;
 

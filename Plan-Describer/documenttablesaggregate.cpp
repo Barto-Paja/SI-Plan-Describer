@@ -6,6 +6,12 @@ DocumentTablesAggregate::DocumentTablesAggregate(QString db_file_name, QObject *
     _db = QSqlDatabase::addDatabase("QSQLITE",_databasePath.path());
 }
 
+DocumentTablesAggregate::~DocumentTablesAggregate()
+{
+    _db.close();
+    _variants.clear();
+}
+
 bool DocumentTablesAggregate::loadData()
 {
     qDebug() << _databasePath.path();
@@ -42,6 +48,8 @@ bool DocumentTablesAggregate::prepareValues()
         {
             _variants.append(targetVariant());
             _variants.last().name = query->value("name").toString();
+            _variants.last().isUsing = query->value("is_used").toBool();
+
         }
     }
     else
