@@ -21,6 +21,9 @@ public:
 private slots:
 
     void itemClicked(QTableWidgetItem *item);
+    void cellChanged(QTableWidgetItem *item);
+
+    void on_pushButton_addNewTarget_clicked();
 
 private:
     Ui::DataBaseEditorDialog *ui;
@@ -35,8 +38,8 @@ private:
 
     DocumentTablesAggregate *_dbProxy = nullptr;
 
-    QStringList _tempOrders;
-    QString _oldTargetName;
+    QString _oldValue;
+
 };
 
 #endif // DATABASEEDITORDIALOG_H

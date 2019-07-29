@@ -78,3 +78,42 @@ QList<targetVariant> DocumentTablesAggregate::variants() const
 {
     return _variants;
 }
+
+bool DocumentTablesAggregate::insertNewTarget(QString value)
+{
+    QSqlQuery *query = new QSqlQuery(_db);
+    query->prepare("INSERT INTO target (name) VALUES (:target_name)");
+    query->bindValue(":target_name",value);
+
+    return query->exec();
+}
+
+bool DocumentTablesAggregate::updateTargetStatus(QString name, bool status)
+{
+    int _status {0};
+
+    if(status)
+    {
+        _status = 1;
+    }
+    else {
+        _status = 0;
+    }
+
+    QSqlQuery *query = new QSqlQuery(_db);
+    query->prepare("UPDATE target SET is_used = :is_used_status WHERE name = :target_name");
+    query->bindValue(":is_used_status",_status);
+    query->bindValue(":target_name",name);
+
+    return query->exec();
+}
+
+bool DocumentTablesAggregate::updateTargetName(QString old_value, QString new_value)
+{
+    QSqlQuery *query = new QSqlQuery(_db);
+    query->prepare("UPDATE target SET name = :new_name WHERE name = :target_name");
+    query->bindValue(":new_name",new_value);
+    query->bindValue(":target_name",old_value);
+
+    return query->exec();
+}
