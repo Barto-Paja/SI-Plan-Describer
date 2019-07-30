@@ -117,3 +117,13 @@ bool DocumentTablesAggregate::updateTargetName(QString old_value, QString new_va
 
     return query->exec();
 }
+
+bool DocumentTablesAggregate::insertNewMethod(QString text, int index_target)
+{
+    QSqlQuery *query = new QSqlQuery(_db);
+    query->prepare("INSERT INTO methods (text, target_id) VALUES (:text_value, :target_id_value)");
+    query->bindValue(":text_value",text);
+    query->bindValue(":target_id_value",index_target);
+
+    return query->exec();
+}

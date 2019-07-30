@@ -30,6 +30,8 @@ public:
     bool insertNewTarget(QString value);
     bool updateTargetStatus(QString name, bool status);
     bool updateTargetName(QString old_value, QString new_value);
+
+    bool insertNewMethod(QString text, int index_target);
     bool updateMethodText(QString old_value, QString new_text);
 
 signals:

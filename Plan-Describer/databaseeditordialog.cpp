@@ -80,6 +80,11 @@ void DataBaseEditorDialog::cellChanged(QTableWidgetItem *item)
     int column = item->column();
     int row = item->row();
 
+    if(_oldValue.isEmpty())
+    {
+        return;
+    }
+
     if(item->text().isEmpty())
     {
         ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Nieduana próba zmiany wartości dla rekordu <i>%2</i>")
@@ -131,6 +136,8 @@ void DataBaseEditorDialog::loadTargets()
         auto flags = item->flags();
         item->setFlags(flags & (~Qt::ItemIsEditable));
         ui->tableWidget_targets->setItem(row,1,item);
+
+        ui->comboBox_targets->addItem(data[i].name,data[i].id);
     }
 
     connect(ui->tableWidget_targets,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemClicked(QTableWidgetItem*)));
@@ -139,25 +146,29 @@ void DataBaseEditorDialog::loadTargets()
     update();
 }
 
-void DataBaseEditorDialog::loadMethods(int target_index)
+void DataBaseEditorDialog::loadMethods()
 {
     QStringList headers;
-    headers << tr("Nazwa Metody") << tr("D");
+    headers << tr("Nazwa Metody") << tr("Należyd do") << tr("D");
 
     auto data = _dbProxy->variants();
 
-    ui->tableWidget_methods->setColumnCount(2);
+    ui->tableWidget_methods->setColumnCount(3);
     ui->tableWidget_methods->setHorizontalHeaderLabels(headers);
     ui->tableWidget_methods->horizontalHeader()->update();
 
     QIcon icon(QPixmap(":/icons/rubbish-bin.png").scaled(25,25));
 
-    for(int i = 0; i < data[target_index].variants.count(); ++i )
+    for(int i = 0; i < data.count(); ++i)
     {
-        int row = ui->tableWidget_methods->rowCount();
-        ui->tableWidget_methods->insertRow(row);
-        ui->tableWidget_methods->setItem(row,0,new QTableWidgetItem(data[target_index].variants[i]));
-        ui->tableWidget_methods->setItem(row,1,new QTableWidgetItem(icon,""));
+        for(int j = 0; j < data[i].variants.count(); ++j )
+        {
+            int row = ui->tableWidget_methods->rowCount();
+            ui->tableWidget_methods->insertRow(row);
+            ui->tableWidget_methods->setItem(row,0,new QTableWidgetItem(data[i].variants[j]));
+            ui->tableWidget_methods->setItem(row,1,new QTableWidgetItem(data[i].name));
+            ui->tableWidget_methods->setItem(row,2,new QTableWidgetItem(icon,""));
+        }
     }
 
     connect(ui->tableWidget_methods,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemClicked(QTableWidgetItem*)));
@@ -183,6 +194,7 @@ bool DataBaseEditorDialog::fromWordToBool(QString text)
 
 void DataBaseEditorDialog::on_pushButton_addNewTarget_clicked()
 {
+    _oldValue.clear();
     QString name = ui->lineEdit_targetName->text();
 
     if(name.isEmpty())
@@ -207,6 +219,44 @@ void DataBaseEditorDialog::on_pushButton_addNewTarget_clicked()
         ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Nieduana próba dodania nowego rekordu: <i>%2</i>")
                                         .arg(QDateTime::currentDateTime().toString())
                                         .arg(name));
+        return;
+    }
+}
+
+void DataBaseEditorDialog::on_pushButton_addNewMethod_clicked()
+{
+    _oldValue.clear();
+    QString text = ui->lineEdit_methodText->text();
+
+    if(text.isEmpty())
+    {
+        ui->label_error->setText("Błąd - zawartość pola nie może być pusta.");
+        return;
+    }
+
+
+    if(_dbProxy->insertNewMethod(text,ui->comboBox_targets->currentData().toInt()))
+    {
+        QIcon icon(QPixmap(":/icons/rubbish-bin.png").scaled(25,25));
+
+        int row = ui->tableWidget_methods->rowCount();
+        ui->tableWidget_methods->insertRow(row);
+        ui->tableWidget_methods->setItem(row,0,new QTableWidgetItem(text));
+        ui->tableWidget_methods->setItem(row,1,new QTableWidgetItem(ui->comboBox_targets->currentText()));
+        ui->tableWidget_methods->setItem(row,2,new QTableWidgetItem(icon,""));
+        ui->lineEdit_methodText->clear();
+
+        ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Dodano nowy rekord: <i>%2</i>")
+                                        .arg(QDateTime::currentDateTime().toString())
+                                        .arg(text));
+
+        return;
+    }
+    else
+    {
+        ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Nieduana próba dodania nowego rekordu: <i>%2</i>")
+                                        .arg(QDateTime::currentDateTime().toString())
+                                        .arg(text));
         return;
     }
 }

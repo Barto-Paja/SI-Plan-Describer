@@ -43,11 +43,11 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
-         <string>Tab 1</string>
+         <string>Cele</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
@@ -152,12 +152,9 @@
        </widget>
        <widget class="QWidget" name="tab_2">
         <attribute name="title">
-         <string>Tab 2</string>
+         <string>Metody</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QComboBox" name="comboBox"/>
-         </item>
          <item>
           <widget class="QTableWidget" name="tableWidget_methods"/>
          </item>
@@ -180,7 +177,22 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QLineEdit" name="lineEdit_methodText"/>
+            <widget class="QLineEdit" name="lineEdit_methodText">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBox_targets">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_addNewMethod">
@@ -190,7 +202,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Dodajn nową metodę</string>
+              <string/>
              </property>
              <property name="icon">
               <iconset resource="icons.qrc">

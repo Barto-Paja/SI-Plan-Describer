@@ -25,13 +25,16 @@ private slots:
 
     void on_pushButton_addNewTarget_clicked();
 
+    void on_pushButton_addNewMethod_clicked();
+
 private:
     Ui::DataBaseEditorDialog *ui;
 
     bool initDataBase();
     void fillViewData();
     void loadTargets();
-    void loadMethods(int target_index = 0);
+    void loadMethods();
+
 
     QString translateBoolToWordValue(bool value);
     bool fromWordToBool(QString text);
