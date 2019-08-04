@@ -203,7 +203,9 @@ void DataBaseEditorDialog::on_pushButton_addNewTarget_clicked()
         return;
     }
 
-    if(_dbProxy->insertNewTarget(name))
+    auto newTargetID = _dbProxy->insertNewTarget(name);
+
+    if(newTargetID)
     {
         int row = ui->tableWidget_targets->rowCount();
         ui->tableWidget_targets->insertRow(row);
@@ -213,6 +215,9 @@ void DataBaseEditorDialog::on_pushButton_addNewTarget_clicked()
         item->setFlags(flags & (~Qt::ItemIsEditable));
         ui->tableWidget_targets->setItem(row,1,item);
         ui->lineEdit_targetName->clear();
+
+        ui->comboBox_targets->addItem(name,newTargetID);
+        update();
     }
     else
     {

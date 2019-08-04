@@ -74,18 +74,49 @@ bool DocumentTablesAggregate::prepareValues()
     return true;
 }
 
-QList<targetVariant> DocumentTablesAggregate::variants() const
+QList<target> DocumentTablesAggregate::variants() const
 {
     return _variants;
 }
 
-bool DocumentTablesAggregate::insertNewTarget(QString value)
+int DocumentTablesAggregate::insertNewTarget(QString value)
 {
     QSqlQuery *query = new QSqlQuery(_db);
+    _db.transaction();
     query->prepare("INSERT INTO target (name) VALUES (:target_name)");
     query->bindValue(":target_name",value);
 
-    return query->exec();
+    if(query->exec())
+    {
+        auto rowid = query->lastInsertId();
+        query->prepare("SELECT ID FROM target WHERE rowid = :row_id");
+        query->bindValue(":row_id",rowid);
+
+        if(query->exec())
+        {
+            if(query->next())
+            {
+                _db.commit();
+                return query->value("ID").toInt();
+            }
+            else
+            {
+                _db.rollback();
+                return (-1);
+            }
+        }
+        else
+        {
+            _db.rollback();
+            return (-1);
+        }
+
+    }
+    else
+    {
+        _db.rollback();
+        return (-1);
+    }
 }
 
 bool DocumentTablesAggregate::updateTargetStatus(QString name, bool status)

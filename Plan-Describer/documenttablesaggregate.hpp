@@ -10,12 +10,18 @@
 #include <QSqlError>
 #include <QDebug>
 
-struct targetVariant
+struct method
+{
+    QString name;
+    bool isUsing;
+};
+
+struct target
 {
     int id;
     QString name;
     bool isUsing;
-    QList<QString> variants;
+    QList<method> methods;
 };
 
 class DocumentTablesAggregate : public QObject
@@ -25,9 +31,9 @@ public:
     explicit DocumentTablesAggregate(QString db_file_name, QObject *parent = nullptr);
     ~DocumentTablesAggregate();
     bool loadData();
-    QList<targetVariant> variants() const;
+    QList<target> variants() const;
 
-    bool insertNewTarget(QString value);
+    int insertNewTarget(QString value);
     bool updateTargetStatus(QString name, bool status);
     bool updateTargetName(QString old_value, QString new_value);
 
