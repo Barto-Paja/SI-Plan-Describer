@@ -73,6 +73,22 @@ void DataBaseEditorDialog::itemClicked(QTableWidgetItem *item)
         }
     }
 
+    if(column == 2)
+    {
+        if(item->tableWidget() == ui->tableWidget_targets)
+        {
+            ;
+        }
+        else
+        {
+            int index = item->tableWidget()->item(row,3)->text().toInt();
+            _dbProxy->removeMethod(index);
+
+            ui->tableWidget_methods->removeRow(row);
+
+        }
+    }
+
 }
 
 void DataBaseEditorDialog::cellChanged(QTableWidgetItem *item)
@@ -149,11 +165,11 @@ void DataBaseEditorDialog::loadTargets()
 void DataBaseEditorDialog::loadMethods()
 {
     QStringList headers;
-    headers << tr("Nazwa Metody") << tr("Należyd do") << tr("D");
+    headers << tr("Nazwa Metody") << tr("Należyd do") << tr("D") << tr("ID");
 
     auto data = _dbProxy->variants();
 
-    ui->tableWidget_methods->setColumnCount(3);
+    ui->tableWidget_methods->setColumnCount(4);
     ui->tableWidget_methods->setHorizontalHeaderLabels(headers);
     ui->tableWidget_methods->horizontalHeader()->update();
 
@@ -161,19 +177,20 @@ void DataBaseEditorDialog::loadMethods()
 
     for(int i = 0; i < data.count(); ++i)
     {
-        for(int j = 0; j < data[i].variants.count(); ++j )
+        for(int j = 0; j < data[i].methods.count(); ++j )
         {
             int row = ui->tableWidget_methods->rowCount();
             ui->tableWidget_methods->insertRow(row);
-            ui->tableWidget_methods->setItem(row,0,new QTableWidgetItem(data[i].variants[j]));
+            ui->tableWidget_methods->setItem(row,0,new QTableWidgetItem(data[i].methods[j].name));
             ui->tableWidget_methods->setItem(row,1,new QTableWidgetItem(data[i].name));
             ui->tableWidget_methods->setItem(row,2,new QTableWidgetItem(icon,""));
+            ui->tableWidget_methods->setItem(row,3,new QTableWidgetItem(QString::number(data[i].methods[j].id)));
         }
     }
 
     connect(ui->tableWidget_methods,SIGNAL(itemClicked(QTableWidgetItem*)),this,SLOT(itemClicked(QTableWidgetItem*)));
     connect(ui->tableWidget_methods,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(cellChanged(QTableWidgetItem*)));
-
+    ui->tableWidget_methods->setColumnHidden(3,false);
     update();
 }
 

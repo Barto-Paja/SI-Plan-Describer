@@ -21,16 +21,16 @@ bool DocumentPlanDialog::loadData()
     DocumentTablesAggregate doc("database.db3");
     if(doc.loadData())
     {
-        QList<targetVariant> variants = doc.variants();
+        QList<target> variants = doc.variants();
 
         for (int i =0;i < variants.count();++i) {
 
 
             QVBoxLayout *layout = new QVBoxLayout;
             layout->setObjectName(QString("VBox_%1").arg(i));
-            for (int j = 0;j < variants[i].variants.count(); ++j) {
-                qDebug() << variants[i].variants[j];
-                layout->addWidget(new QCheckBox(variants[i].variants[j]));
+            for (int j = 0;j < variants[i].methods.count(); ++j) {
+
+                layout->addWidget(new QCheckBox(variants[i].methods[j].name));
             }
 
             QWidget *widget = new QWidget;

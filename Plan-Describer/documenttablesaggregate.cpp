@@ -46,7 +46,7 @@ bool DocumentTablesAggregate::prepareValues()
     {
         while(query->next())
         {
-            _variants.append(targetVariant());
+            _variants.append(target());
             _variants.last().name = query->value("name").toString();
             _variants.last().isUsing = query->value("is_used").toBool();
             _variants.last().id = query->value("id").toInt();
@@ -60,13 +60,16 @@ bool DocumentTablesAggregate::prepareValues()
 
     for(int i = 0; i < _variants.count(); ++i)
     {
-        query->prepare("SELECT text FROM methods WHERE target_id = :targetID");
+        query->prepare("SELECT * FROM methods WHERE target_id = :targetID");
         query->bindValue(":targetID",(i+1));
         if(query->exec())
         {
             while(query->next())
             {
-                _variants[i].variants.append(query->value("text").toString());
+                _variants[i].methods.append(method());
+                _variants[i].methods.last().name = query->value("text").toString();
+                _variants[i].methods.last().isUsing = query->value("is_used").toInt();
+                _variants[i].methods.last().id = query->value("id").toInt();
             }
         }
     }
@@ -156,5 +159,13 @@ bool DocumentTablesAggregate::insertNewMethod(QString text, int index_target)
     query->bindValue(":text_value",text);
     query->bindValue(":target_id_value",index_target);
 
+    return query->exec();
+}
+
+bool DocumentTablesAggregate::removeMethod(int index)
+{
+    QSqlQuery *query = new QSqlQuery(_db);
+    query->prepare("DELETE FROM methods WHERE id = :id_v");
+    query->bindValue(":id_v",index);
     return query->exec();
 }

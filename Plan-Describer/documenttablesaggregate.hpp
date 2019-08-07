@@ -12,6 +12,7 @@
 
 struct method
 {
+    int id;
     QString name;
     bool isUsing;
 };
@@ -39,6 +40,7 @@ public:
 
     bool insertNewMethod(QString text, int index_target);
     bool updateMethodText(QString old_value, QString new_text);
+    bool removeMethod(int index);
 
 signals:
 
@@ -52,7 +54,7 @@ private:
     QSqlDatabase _db;
     QDir _databasePath = QDir::currentPath();
 
-    QList<targetVariant> _variants;
+    QList<target> _variants;
 };
 
 #endif // DOCUMENTTABLESAGGREGATE_HPP
