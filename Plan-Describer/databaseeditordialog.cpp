@@ -33,7 +33,6 @@ void DataBaseEditorDialog::itemClicked(QTableWidgetItem *item)
     if(column == 0)
     {
         _oldValue = item->text();
-        qDebug() << _oldValue << item->text();
     }
 
     if(column == 1)
@@ -69,7 +68,7 @@ void DataBaseEditorDialog::itemClicked(QTableWidgetItem *item)
         }
         else
         {
-            qDebug() << "Nie pykło!";
+            ;
         }
     }
 
@@ -82,6 +81,28 @@ void DataBaseEditorDialog::itemClicked(QTableWidgetItem *item)
         else
         {
             int index = item->tableWidget()->item(row,3)->text().toInt();
+
+            QMessageBox msgBox;
+            msgBox.setText("Zlecono usunięcie rekordu.");
+            msgBox.setInformativeText("Czy chcesz kontynuować?");
+            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+            msgBox.setDefaultButton(QMessageBox::Cancel);
+
+            int decision = msgBox.exec();
+
+            switch (decision) {
+                case QMessageBox::Ok:
+                {
+                    qDebug() << "OK";
+                    return;
+                }
+            case QMessageBox::Cancel:
+                {
+                qDebug() << "Canel";
+                return;
+                }
+            }
+
             _dbProxy->removeMethod(index);
 
             ui->tableWidget_methods->removeRow(row);
@@ -112,11 +133,38 @@ void DataBaseEditorDialog::cellChanged(QTableWidgetItem *item)
     {
         if(item->tableWidget() == ui->tableWidget_targets)
         {
-            _dbProxy->updateTargetName(_oldValue,item->text());
+            if(_dbProxy->updateTargetName(_oldValue,item->text()))
+            {
+                ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Zmiana wartości rekordu z <i>%2</i> na <i>%3</i>")
+                                                .arg(QDateTime::currentDateTime().toString())
+                                                .arg(_oldValue)
+                                                .arg(item->text()));
+                _oldValue.clear();
+            }
+            else
+            {
+                ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Nieduana próba zmiany wartości dla rekordu <i>%2</i>")
+                                                .arg(QDateTime::currentDateTime().toString())
+                                                .arg(_oldValue));
+            }
         }
         else
         {
-
+            int index = item->tableWidget()->item(row,3)->text().toInt();
+            if(_dbProxy->updateMethodText(_oldValue,item->text(),index))
+            {
+                ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Zmiana wartości rekordu z <i>%2</i> na <i>%3</i>")
+                                                .arg(QDateTime::currentDateTime().toString())
+                                                .arg(_oldValue)
+                                                .arg(item->text()));
+                _oldValue.clear();
+            }
+            else
+            {
+                ui->plainTextEdit_log->appendHtml(QString("---- %1 ---- <br> Nieduana próba zmiany wartości dla rekordu <i>%2</i>")
+                                                .arg(QDateTime::currentDateTime().toString())
+                                                .arg(_oldValue));
+            }
         }
     }
 }
@@ -182,9 +230,16 @@ void DataBaseEditorDialog::loadMethods()
             int row = ui->tableWidget_methods->rowCount();
             ui->tableWidget_methods->insertRow(row);
             ui->tableWidget_methods->setItem(row,0,new QTableWidgetItem(data[i].methods[j].name));
-            ui->tableWidget_methods->setItem(row,1,new QTableWidgetItem(data[i].name));
+
+            QTableWidgetItem *item = new QTableWidgetItem(data[i].name);
+            item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+            ui->tableWidget_methods->setItem(row,1,item);
+
             ui->tableWidget_methods->setItem(row,2,new QTableWidgetItem(icon,""));
-            ui->tableWidget_methods->setItem(row,3,new QTableWidgetItem(QString::number(data[i].methods[j].id)));
+
+            item = new QTableWidgetItem(QString::number(data[i].methods[j].id));
+            item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+            ui->tableWidget_methods->setItem(row,3,item);
         }
     }
 

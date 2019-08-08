@@ -5,6 +5,7 @@
 #include <QDateTime>
 #include <QTableWidgetItem>
 #include <QTableView>
+#include <QMessageBox>
 #include "documenttablesaggregate.hpp"
 
 namespace Ui {

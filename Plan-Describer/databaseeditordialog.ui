@@ -186,15 +186,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="comboBox_targets">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="pushButton_addNewMethod">
              <property name="font">
               <font>
@@ -217,6 +208,15 @@
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_targets">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="verticalSpacer_4">

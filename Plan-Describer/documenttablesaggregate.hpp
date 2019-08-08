@@ -39,7 +39,7 @@ public:
     bool updateTargetName(QString old_value, QString new_value);
 
     bool insertNewMethod(QString text, int index_target);
-    bool updateMethodText(QString old_value, QString new_text);
+    bool updateMethodText(QString old_value, QString new_text, int index);
     bool removeMethod(int index);
 
 signals:

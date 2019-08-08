@@ -162,6 +162,16 @@ bool DocumentTablesAggregate::insertNewMethod(QString text, int index_target)
     return query->exec();
 }
 
+bool DocumentTablesAggregate::updateMethodText(QString old_value, QString new_text, int index)
+{
+    QSqlQuery *query = new QSqlQuery(_db);
+    query->prepare("UPDATE methods SET text = :new_text WHERE id = :id_v");
+    query->bindValue(":new_text",new_text);
+    query->bindValue(":id_v",index);
+
+    return query->exec();
+}
+
 bool DocumentTablesAggregate::removeMethod(int index)
 {
     QSqlQuery *query = new QSqlQuery(_db);
