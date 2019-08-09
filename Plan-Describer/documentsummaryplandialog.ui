@@ -145,18 +145,6 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLabel" name="label_therapistName">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Terapeuta prowadzący</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QLabel" name="label_title">
          <property name="font">
           <font>
@@ -177,6 +165,18 @@
          </property>
          <property name="text">
           <string>Imię i nazwisko</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_therapistName">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Terapeuta prowadzący</string>
          </property>
         </widget>
        </item>

@@ -43,7 +43,8 @@ HEADERS += \
         documentprinter.hpp \
         documentsummaryplandialog.h \
         documenttablesaggregate.hpp \
-        mainwindow.h
+        mainwindow.h \
+        textcores.h
 
 FORMS += \
         databaseeditordialog.ui \

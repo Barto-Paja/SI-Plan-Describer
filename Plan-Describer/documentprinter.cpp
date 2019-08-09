@@ -115,16 +115,16 @@ bool DocumentPrinter::printFile(const documentTemplate &document, QString file_n
     // HEADERS
     for(int i = 0; i < document.headers.count(); ++i)
     {
-        table->cellAt(0,i).firstCursorPosition().insertHtml(QString("<br>%1</br>").arg(document.headers[i]));
+        table->cellAt(0,i).firstCursorPosition().insertHtml(QString("<b>%1</b>").arg(document.headers[i]));
     }
 
     // TABLE ROWS
 
-    for(int i = 1; i < document.rows.count(); ++i)
+    for(int i = 0; i < document.rows.count(); ++i)
     {
         for(int j = 0; j < document.rows[i].count(); ++j)
         {
-            table->cellAt(i,j).firstCursorPosition().insertHtml(QString("%1").arg(document.rows[i][j]));
+            table->cellAt(i+1,j).firstCursorPosition().insertHtml(QString("%1").arg(document.rows[i][j]));
         }
     }
 

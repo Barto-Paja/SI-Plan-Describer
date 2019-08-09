@@ -48,6 +48,7 @@ public:
     explicit DocumentPrinter(QObject *parent = nullptr);
 
     bool printFile(QString file_name);
+    bool printFile(const documentTemplate &document, QString file_name);
 
     void setDocument(const documentTemplate &document);
 

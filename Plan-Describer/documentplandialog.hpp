@@ -7,6 +7,7 @@
 #include "documenttablesaggregate.hpp"
 #include "documentprinter.hpp"
 #include "documentparser.hpp"
+#include "textcores.h"
 
 namespace Ui {
 class DocumentPlanDialog;
@@ -32,6 +33,8 @@ private:
     Ui::DocumentPlanDialog *ui;
     void prepareDocumentTemplate(documentTemplate &document);
     void prepareDocumentCoreSave(documentCoreSave &document);
+
+    QString compressListtoHTMLCell(QList<QString> list);
 };
 
 #endif // DOCUMENTPLANDIALOG_HPP
