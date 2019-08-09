@@ -83,6 +83,69 @@ bool DocumentPrinter::printFile(QString file_name)
     return true;
 }
 
+bool DocumentPrinter::printFile(const documentTemplate &document, QString file_name)
+{
+    QTextDocument doc;
+    doc.setDefaultFont(_font);
+    doc.setPageSize(_printer.pageSizeMM()); // This is necessary if you want to hide the page number
+
+    QTextCursor cursor(&doc);
+
+    // TITLE
+    QTextBlockFormat block_format_title;
+    block_format_title.setAlignment(Qt::AlignCenter);
+    cursor.insertBlock(block_format_title);
+    cursor.insertHtml(QString("<p><b>%1</b></p><br>").arg(_document.title));
+
+    // CORE CONTENT
+    QTextBlockFormat block_format;
+    block_format.setAlignment(Qt::AlignLeft);
+    cursor.insertBlock(block_format);
+
+    cursor.insertHtml(QString("<p><b>Imię i nazwisko:</b> %1<br>").arg(_document.studentName));
+    cursor.insertHtml(QString("<p><b>Terapeuta prowadzący:</b> %1<br>").arg(_document.therapistName));
+    cursor.insertHtml("<br>");
+
+    cursor.insertHtml(document.note);
+
+    // TABLE
+
+    QTextTable *table = cursor.insertTable(document.rows.count()+1,document.headers.count(),_tableFormat);
+
+    // HEADERS
+    for(int i = 0; i < document.headers.count(); ++i)
+    {
+        table->cellAt(0,i).firstCursorPosition().insertHtml(QString("<br>%1</br>").arg(document.headers[i]));
+    }
+
+    // TABLE ROWS
+
+    for(int i = 1; i < document.rows.count(); ++i)
+    {
+        for(int j = 0; j < document.rows[i].count(); ++j)
+        {
+            table->cellAt(i,j).firstCursorPosition().insertHtml(QString("%1").arg(document.rows[i][j]));
+        }
+    }
+
+    // SIGNATURE
+    QTextBlockFormat block_format_;
+    block_format_.setAlignment(Qt::AlignRight);
+
+    cursor.movePosition(QTextCursor::End);
+    cursor.insertBlock(block_format_);
+    cursor.insertHtml("<br><br>");
+    cursor.insertHtml(QString("<p><i>%1</i></p>").arg(_document.therapistSignature));
+
+
+    // PRINT
+    _printer.setOutputFileName(QString("%1.pdf").arg(file_name));
+    doc.print(&_printer);
+
+    return true;
+
+}
+
 void DocumentPrinter::setDocument(const documentTemplate &document)
 {
     _document = document;
