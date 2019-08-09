@@ -26,3 +26,18 @@ void MainWindow::on_pushButton_exit_clicked()
 {
     exit(0);
 }
+
+void MainWindow::on_pushButton_newSummaryPlan_clicked()
+{
+    DocumentSummaryPlanDialog dialog;
+    dialog.setModal(true);
+    dialog.exec();
+}
+
+
+void MainWindow::on_action_manageDictionaries_triggered()
+{
+    DataBaseEditorDialog dialog;
+    dialog.setModal(true);
+    dialog.exec();
+}

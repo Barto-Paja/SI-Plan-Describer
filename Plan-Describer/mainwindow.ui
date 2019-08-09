@@ -61,6 +61,26 @@
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="pushButton_newSummaryPlan">
+      <property name="text">
+       <string>Utwórz plan ewaluacji</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
      <widget class="QPushButton" name="pushButton_exit">
       <property name="text">
        <string>Zakończ</string>
@@ -91,6 +111,26 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAdmin">
+    <property name="title">
+     <string>Administracja</string>
+    </property>
+    <widget class="QMenu" name="menuDataBase">
+     <property name="title">
+      <string>Bazy Danych</string>
+     </property>
+     <addaction name="action_setDataBase"/>
+     <addaction name="action_manageDictionaries"/>
+    </widget>
+    <addaction name="menuDataBase"/>
+   </widget>
+   <addaction name="menuMenu"/>
+   <addaction name="menuAdmin"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -101,6 +141,16 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_setDataBase">
+   <property name="text">
+    <string>Ustaw bazę</string>
+   </property>
+  </action>
+  <action name="action_manageDictionaries">
+   <property name="text">
+    <string>Zarządzaj słownikami</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

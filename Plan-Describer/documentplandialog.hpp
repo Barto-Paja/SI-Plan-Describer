@@ -6,6 +6,7 @@
 #include <QCheckBox>
 #include "documenttablesaggregate.hpp"
 #include "documentprinter.hpp"
+#include "documentparser.hpp"
 
 namespace Ui {
 class DocumentPlanDialog;
@@ -30,6 +31,7 @@ private slots:
 private:
     Ui::DocumentPlanDialog *ui;
     void prepareDocumentTemplate(documentTemplate &document);
+    void prepareDocumentCoreSave(documentCoreSave &document);
 };
 
 #endif // DOCUMENTPLANDIALOG_HPP
