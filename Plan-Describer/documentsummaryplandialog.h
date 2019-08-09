@@ -12,6 +12,7 @@
 
 #include "documentparser.hpp"
 #include "documentprinter.hpp"
+#include "textcores.h"
 
 namespace Ui {
 class DocumentSummaryPlanDialog;
@@ -43,6 +44,7 @@ private:
 
     QDir _path;
     QList<DocumentSummaryPlanDialog::row> _records;
+    documentCoreSave _document;
 };
 
 #endif // DOCUMENTSUMMARYPLANDIALOG_H

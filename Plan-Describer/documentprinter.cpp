@@ -95,15 +95,15 @@ bool DocumentPrinter::printFile(const documentTemplate &document, QString file_n
     QTextBlockFormat block_format_title;
     block_format_title.setAlignment(Qt::AlignCenter);
     cursor.insertBlock(block_format_title);
-    cursor.insertHtml(QString("<p><b>%1</b></p><br>").arg(_document.title));
+    cursor.insertHtml(QString("<p><b>%1</b></p><br>").arg(document.title));
 
     // CORE CONTENT
     QTextBlockFormat block_format;
     block_format.setAlignment(Qt::AlignLeft);
     cursor.insertBlock(block_format);
 
-    cursor.insertHtml(QString("<p><b>Imię i nazwisko:</b> %1<br>").arg(_document.studentName));
-    cursor.insertHtml(QString("<p><b>Terapeuta prowadzący:</b> %1<br>").arg(_document.therapistName));
+    cursor.insertHtml(QString("<p><b>Imię i nazwisko:</b> %1<br>").arg(document.studentName));
+    cursor.insertHtml(QString("<p><b>Terapeuta prowadzący:</b> %1<br>").arg(document.therapistName));
     cursor.insertHtml("<br>");
 
     cursor.insertHtml(document.note);
@@ -135,7 +135,7 @@ bool DocumentPrinter::printFile(const documentTemplate &document, QString file_n
     cursor.movePosition(QTextCursor::End);
     cursor.insertBlock(block_format_);
     cursor.insertHtml("<br><br>");
-    cursor.insertHtml(QString("<p><i>%1</i></p>").arg(_document.therapistSignature));
+    cursor.insertHtml(QString("<p><i>%1</i></p>").arg(document.therapistSignature));
 
 
     // PRINT
