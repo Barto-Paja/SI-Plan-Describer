@@ -1,8 +1,6 @@
 #include "documentsummaryplandialog.h"
 #include "ui_documentsummaryplandialog.h"
 
-#include <QPlainTextEdit>
-#include <QDebug>
 
 DocumentSummaryPlanDialog::DocumentSummaryPlanDialog(QWidget *parent) :
     QDialog(parent),
@@ -79,8 +77,8 @@ void DocumentSummaryPlanDialog::on_pushButton_load_clicked()
             label->setText(document.targets[i]);
             label->setMinimumWidth(300);
             layout->addWidget(label);
-            layout->addWidget(new QPlainTextEdit());
-            layout->addWidget(new QPlainTextEdit());
+            layout->addWidget(new QPlainTextEdit(QString("Skills_%1").arg(i)));
+            layout->addWidget(new QPlainTextEdit(QString("Notes_%1").arg(i)));
             vLayout->addItem(layout);
 
             label->setStyleSheet("QLabel { border: 1px solid black }");
@@ -91,5 +89,10 @@ void DocumentSummaryPlanDialog::on_pushButton_load_clicked()
         update();
     }
 
+
+}
+
+void DocumentSummaryPlanDialog::on_pushButton_generateFile_clicked()
+{
 
 }
