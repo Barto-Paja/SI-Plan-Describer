@@ -11,6 +11,7 @@
 #include <QDebug>
 
 #include "documentparser.hpp"
+#include "documentprinter.hpp"
 
 namespace Ui {
 class DocumentSummaryPlanDialog;

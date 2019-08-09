@@ -24,6 +24,10 @@ struct documentTemplate
     QString studentName;
     QString therapistName;
     QString therapistSignature;
+    QString note;
+
+    QList<QString> headers;
+    QList<QList<QString>> rows;
 
     QList<table> table;
 };

@@ -69,16 +69,27 @@ void DocumentSummaryPlanDialog::on_pushButton_load_clicked()
 
         for(int i = 0; i < document.targets.count(); ++i)
         {
+            _records.append(row());
+
             QHBoxLayout *layout = new QHBoxLayout;
             layout->setSpacing(3);
-            layout->setObjectName(QString("Target_%1").arg(i));
-            QLabel *label = new QLabel;
+            layout->setObjectName(QString("Record_%1").arg(i));
+
+            _records.last()._ptrColumn0 = new QLabel();
+            _records.last()._ptrColumn0->setObjectName(QString("Target_%1").arg(i));
+            _records.last()._ptrColumn1 = new QPlainTextEdit();
+            _records.last()._ptrColumn1->setObjectName(QString("Skills_%1").arg(i));
+            _records.last()._ptrColumn2 = new QPlainTextEdit();
+            _records.last()._ptrColumn2->setObjectName(QString("Notes_%1").arg(i));
+
+            QLabel *label = _records.last()._ptrColumn0;
             label->setAlignment(Qt::AlignCenter);
             label->setText(document.targets[i]);
             label->setMinimumWidth(300);
             layout->addWidget(label);
-            layout->addWidget(new QPlainTextEdit(QString("Skills_%1").arg(i)));
-            layout->addWidget(new QPlainTextEdit(QString("Notes_%1").arg(i)));
+
+            layout->addWidget(_records.last()._ptrColumn1);
+            layout->addWidget(_records.last()._ptrColumn2);
             vLayout->addItem(layout);
 
             label->setStyleSheet("QLabel { border: 1px solid black }");
@@ -94,5 +105,18 @@ void DocumentSummaryPlanDialog::on_pushButton_load_clicked()
 
 void DocumentSummaryPlanDialog::on_pushButton_generateFile_clicked()
 {
+    for(int i = 0; i < _records.count(); ++i)
+    {
+        qDebug() << _records.at(i)._ptrColumn0->objectName();
+        _records.at(i)._ptrColumn1->appendHtml(QString("%1").arg(_records.at(i)._ptrColumn1->objectName()));
+        _records.at(i)._ptrColumn2->appendHtml(QString("%1").arg(_records.at(i)._ptrColumn2->objectName()));
+    }
+
+    DocumentPrinter printer;
+    documentTemplate _document;
+
+    _document.title = ui->label_title->text();
+    _document.studentName = ui->label_studentName->text();
+    _document.therapistName = ui->label_therapistName->text();
 
 }
